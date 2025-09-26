@@ -1,0 +1,94 @@
+
+<div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-12">
+    <x-blog.components.card>
+        <div>
+            <x-blog.components.flash-message message="{{ session('success') }}" class="my-2"/>
+            <x-blog.components.flash-message message="{{ session('error') }}" status="error" class="my-2"/>
+
+            <div class="flex justify-between">
+                <div>
+                    <h1 class="md:text-3xl text-4xl text-gray-700">Portfolios</h1>
+                </div>
+                <div> 
+                    <div wire:click="delete({{ $this->id }})" wire:confirm.prompt="Are you sure you want to delete this portfolio?\n\nType DELETE to confirm|DELETE">
+                        <x-danger-button>
+                            <div>Delete Portfolio</div>
+                        </x-danger-button>
+                    </div>
+                </div>
+            </div>
+
+            <div x-show="open">
+                <div>
+                    <form>
+                        <div class="mt-4 grid grid-cols-5 -gap-2">
+                            <div class="mt-1">
+                                <x-text-input disabled placeholder="{{'https://'. env('APP_NAME').'/' }}" class="block mt-1 w-full rounded-r-none" type="text" autofocus autocomplete="form.company_name" />
+                            </div>
+                            <div class="mt-1 col-span-4">
+                                <div class="flex w-full">
+                                    <x-portfolio.available-name-check />
+                                    </div>
+                                    <x-input-error :messages="$errors->get('form.url')" class="mt-2" />
+                            </div>                 
+                        </div>
+                
+                        <div class="mt-1 grid gap-2">
+                            <div class="mt-1">
+                                <x-text-input wire:model="form.greeting" placeholder="Greeting" class="block mt-1 w-full" type="text" autofocus autocomplete="form.greeting" />
+                                <x-input-error :messages="$errors->get('form.greeting')" class="mt-2" />
+                            </div>
+                        </div>
+                
+                        <div class="mt-4">
+                            <textarea placeholder="About you" wire:model="form.about_you" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" rows="6" cols="80" type="text">
+                                
+                            </textarea>
+                            <x-input-error :messages="$errors->get('form.about_you')" class="mt-2" />
+                        </div>
+                
+                
+                        <div class="mt-2 grid grid-cols-3 gap-2">
+                            <div class="mt-1">
+                                <x-text-input wire:model="form.linkedin" placeholder="LinkedIn" class="block mt-1 w-full" type="text" autofocus />
+                                <x-input-error :messages="$errors->get('form.linkedin')" class="mt-2" />
+                            </div>
+                            <div class="mt-1">
+                                <x-text-input wire:model="form.twitter" placeholder="Twitter" class="block mt-1 w-full" type="text" autofocus />
+                                <x-input-error :messages="$errors->get('form.twitter')" class="mt-2" />
+                            </div>
+                            <div class="mt-1">
+                                <x-text-input wire:model="form.github" placeholder="Github" class="block mt-1 w-full" type="text" autofocus/>
+                                <x-input-error :messages="$errors->get('form.github')" class="mt-2" />
+                            </div>
+                        </div>
+                
+                        <div class="mt-2 grid grid-cols-1 gap-2">
+                            <div class="mt-1">
+                                <x-text-input wire:model="form.skills" placeholder="Enter skills (PHP,Laravel)" class="block mt-1 w-full" type="text" autofocus />
+                                <x-input-error :messages="$errors->get('form.skills')" class="mt-2" />
+                                <div>
+                                    <p class="text-xs text-gray-400">You can enter more than one skill separated with ","</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                
+                        <div class="mt-4 flex justify-between"> 
+                            <x-primary-button class="bg-green-500" wire:click.prevent="save">
+                                Save
+                            </x-primary-button>
+                            <a href="{{ route('portfolio.step-two.edit', ['id' => $this->id]) }}" wire:navigate class="font-bold text-green-400 border p-2 border-green-300 rounded-md">
+                               Next >>
+                            </a>
+                        </div>
+                    </form>
+                    <div class="py-4">
+                        <hr>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </x-blog-components.card>
+</div>
