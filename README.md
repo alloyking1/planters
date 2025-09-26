@@ -1,1 +1,1 @@
-# Silence is golden ('click here')['https://laraveldev.pro'] 
+# Silence is golden ('click here')['https://planters.dev']
